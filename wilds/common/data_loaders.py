@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data.sampler import WeightedRandomSampler, SubsetRandomSampler
 from wilds.common.utils import get_counts, split_into_groups
 
+
 def get_train_loader(loader, dataset, batch_size,
         uniform_over_groups=None, grouper=None, distinct_groups=True, n_groups_per_batch=None, **loader_kwargs):
     """
@@ -27,10 +28,10 @@ def get_train_loader(loader, dataset, batch_size,
         - data loader (DataLoader): Data loader.
     """
     if loader == 'standard':
-        if uniform_over_groups is None or not uniform_over_groups:
+        if not uniform_over_groups:
             return DataLoader(
                 dataset,
-                shuffle=True, # Shuffle training dataset
+                shuffle=True,  # Shuffle training dataset
                 sampler=None,
                 collate_fn=dataset.collate,
                 batch_size=batch_size,
@@ -47,7 +48,7 @@ def get_train_loader(loader, dataset, batch_size,
             sampler = WeightedRandomSampler(weights, len(dataset), replacement=True)
             return DataLoader(
                 dataset,
-                shuffle=False, # The WeightedRandomSampler already shuffles
+                shuffle=False,  # The WeightedRandomSampler already shuffles
                 sampler=sampler,
                 collate_fn=dataset.collate,
                 batch_size=batch_size,
@@ -77,6 +78,7 @@ def get_train_loader(loader, dataset, batch_size,
               drop_last=False,
               **loader_kwargs)
 
+
 def get_eval_loader(loader, dataset, batch_size, grouper=None, **loader_kwargs):
     """
     Constructs and returns the data loader for evaluation.
@@ -91,11 +93,12 @@ def get_eval_loader(loader, dataset, batch_size, grouper=None, **loader_kwargs):
     if loader == 'standard':
         return DataLoader(
             dataset,
-            shuffle=False, # Do not shuffle eval datasets
+            shuffle=False,  # Do not shuffle eval datasets
             sampler=None,
             collate_fn=dataset.collate,
             batch_size=batch_size,
             **loader_kwargs)
+
 
 class GroupSampler:
     """

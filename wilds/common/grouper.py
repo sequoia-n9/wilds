@@ -4,6 +4,7 @@ from wilds.common.utils import get_counts
 from wilds.datasets.wilds_dataset import WILDSSubset
 import warnings
 
+
 class Grouper:
     """
     Groupers group data points together based on their metadata.
@@ -51,6 +52,7 @@ class Grouper:
             - group_str (str): A string containing the name of that group.
         """
         raise NotImplementedError
+
 
 class CombinatorialGrouper(Grouper):
     def __init__(self, dataset, groupby_fields):
@@ -151,4 +153,4 @@ class CombinatorialGrouper(Grouper):
         # a_n * x_n
 
     def group_field_str(self, group):
-        return self.group_str(group).replace('=', ':').replace(',','_').replace(' ','')
+        return self.group_str(group).replace('=', ':').replace(',', '_').replace(' ', '')

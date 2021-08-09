@@ -8,10 +8,18 @@ def main():
     if they do not already exist.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--root_dir', required=True,
-                        help='The directory where [dataset]/data can be found (or should be downloaded to, if it does not exist).')
-    parser.add_argument('--datasets', nargs='*', default=None,
-                        help=f'Specify a space-separated list of dataset names to download. If left unspecified, the script will download all of the official benchmark datasets. Available choices are {wilds.supported_datasets}.')
+    parser.add_argument(
+        '--root_dir', required=True,
+        help='The directory where [dataset]/data can be found (or should be downloaded to, if it does not exist).'
+    )
+    parser.add_argument(
+        '--datasets', nargs='*', default=None,
+        help=(
+            f'Specify a space-separated list of dataset names to download. '
+            f'If left unspecified, the script will download all of the official benchmark datasets. '
+            f'Available choices are {wilds.supported_datasets}.'
+        )
+    )
     config = parser.parse_args()
 
     if config.datasets is None:
